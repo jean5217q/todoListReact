@@ -1,0 +1,127 @@
+router
+安裝
+npm install --save react-router-dom
+
+react-router由兩個東西組成
+browserRouter
+畫面與url同步
+route 當url與path match render 畫面
+
+
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+<Router>
+<div>
+
+</div>
+</Router>
+
+npm install --save redux react-redux
+
+
+redux
+store保存所有app的數據／狀態（類似container / only one）
+所有組件可直接訪問store
+要更新要透過reducer
+
+action
+改變store裡的資料與狀態
+組件 => action => store => reducer => update
+組件發出信息告訴store狀態要改變，store告訴他的代理人reducer叫他處理。
+reducer可以查看之前的資料狀態，並執行action與返回先的狀態
+
+01.引入redux(index.js)
+import { createStore } from 'redux';
+
+02.建立資料夾reducers(todoReducer.js) store本體
+
+03.在index.js引入store並啟動store
+import todoReducer from './src/reducers/todoReducer';
+const store = createStore(
+  todoReducer
+);
+
+04.todoReducer(store本體)包含state&action
+state => 數據資料
+action => 容器
+action包含
+01.type=>類似func名字
+02.payload=>更新狀態的數據
+
+05.reducer內部state要用initialState
+initialState = {}
+
+06.reducer內部action表示法(用swith判斷哪個action)
+01.定義action名
+02.定義action型態
+03.定義整體邏輯
+04.定義邏輯執行方法
+
+已新增為案例
+01.建立actiontypes folder => todo.js
+export const ADD_TODO = 'todo/ADD_TODO';
+
+02.建立actions folder => todo.js
+001.引入actiontypes裡所有action名
+import * as TodoActionTypes from '../actiontypes/todo';
+002.定義action類型
+type為類型(名字)
+payload新數據(合成舊數據成新數據)
+此為組件直接dispatch的function
+export const add = inputValue => {
+  return {
+    type: TODOActionTypes.ADD_TODO,
+    inputValue
+  };
+};
+
+function addToCart(product, quantity, unitCost) {
+  return {
+    type: ADD_TO_CART,
+    payload: {
+      product,
+      quantity,
+      unitCost
+    }
+  }
+}
+store.dispatch(add({放新增的物件}))
+03.整體邏輯與方法
+import * as TodoActionTypes from '../actiontypes/todo';
+export default function Player(state=initialState, action) {
+  switch(action.type) {
+    case PlayerActionTypes.ADD_PLAYER:
+      return [
+        ...state,
+        {
+          name: action.name,
+          score: 0
+        }
+      ];
+    default:
+      return state;
+  }
+}
+
+從組建使用
+
+
+//多個reducer的引用
+import { createStore } from "redux";
+import { combineReducers } from 'redux';
+const productsReducer = function(state=[], action) {
+  return state;
+}
+const cartReducer = function(state=[], action) {
+  return state;
+}
+const allReducers = {
+  products: productsReducer,
+  shoppingCart: cartReducer
+}
+const rootReducer = combineReducers(allReducers);
+let store = createStore(rootReducer);
+
+
+
+
