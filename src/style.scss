@@ -1,0 +1,347 @@
+$colorLiGray: #e2e2e2;
+$colorGray: #bfcbd9;
+$colorBlack: #4c4c4c;
+$colorBlue: #1c89ff;
+$main: #ff9d14;
+$light-main: lighten($main,5);
+$border: #bfcbd9;
+// CSS Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@media screen and(max-width: 767px) {
+  html {
+    font-size: 15px;
+  }
+}
+@media screen and(min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+body {
+  font-family: 'Roboto', sans-serif,'微軟正黑體';
+  font-size: 1rem;
+}
+input,textarea,button {
+  outline: none;
+}
+a {
+  text-decoration: none;
+}
+ul,li {
+  list-style: none;
+}
+
+//app-wrap
+.app-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: 100%;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 576px) {
+  .app-wrap {
+    padding: 24px;
+  }
+}
+@media screen and (min-width: 577px) {
+  .app-wrap {
+    border: 1px solid #eee;
+    padding: 60px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
+    transition: 0.2s ease-out;
+    &:hover {
+      box-shadow: 0px 10px 30px rgba(0,0,0,0.1)
+    }
+  }
+}
+
+//list-wrap
+.todo-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+// NAV CSS
+header {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.nav-list {
+  display: flex;
+  justify-content: center; 
+  width: 100%;
+  li {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.todo-link {
+  padding-bottom: 4px;
+  font-size: 1rem;
+  color: $colorBlack;
+  letter-spacing: 2px;
+  position: relative;
+  &:after {
+    display: block;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: $main;
+    transition: 0.1s ease-in;
+  }
+  &.active {
+    &:after {
+      width: 100%;
+    }
+  }
+  &:hover {
+    &:after {
+      width: 100%;
+    }
+  }
+}
+
+
+// 輸入框加確認框
+.todoWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+//todo-input
+.todo-input {
+  width: 100%;
+  padding: 18px ;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.8rem;
+  border: 1px solid $border;
+  &::placeholder {
+    color: $colorGray;
+    letter-spacing: 2px;
+    font-weight: 300;
+  }
+}
+//確認框外層
+.input-wrap {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+//日期
+// submit / cancel button   
+.main-btn {
+  width: 100%;
+  font-size: 0.8rem;
+  margin-left: 1rem;
+  flex: 1;
+  border: 2px solid $main;
+  outline: none;
+  padding: 7px 0;
+  cursor: pointer;
+  transition: 0.1s ease-out;
+  letter-spacing: 2px;
+  &.submit {
+    background-color: $main;
+    color: white;
+    &:hover {
+      background-color: $light-main;
+      border: 2px solid $light-main;
+    }
+  }
+  &.cancel {
+    color: $main;
+    &:hover {
+      color: $main;
+      border: 2px solid $light-main;
+    }
+  }
+} 
+@media screen and (max-width: 576px) {
+  // .input-wrap {
+  //   flex-direction: column;
+  // }
+  .main-btn {
+    margin-left: 8px;
+  }
+  .todoWrap {
+    margin-bottom: 0;
+  }
+  // .date-picker {
+  //   width: 100%;
+  //   margin-bottom: 8px;
+  // }
+}
+
+//list-item
+.todoItem {
+  width: 100%;
+  margin-top: 0.8rem;
+}
+//外層
+.show {
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 5px;
+  border: 1px solid $border;
+}
+//主層
+.show-panel {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+//選擇框外層
+.show-check-label {
+  user-select: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid $border;
+  cursor: pointer;
+  position: relative;
+  margin-right: 24px;
+  border-radius: 50%;
+  input {
+    opacity: 0;
+  }
+  &:after {
+    display: block;
+    content: '';
+    opacity: 0;
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: none;
+    transition: 0.1s ease-out;
+    background-color: $main;
+    border-radius: 50%;
+  }
+  &.checked {
+    &:after {
+      opacity: 1
+    }
+  }
+}
+//按鈕外層
+.show-btn-wrap {
+  margin-left: auto;
+  display: flex;
+  i {
+    margin-left: 24px;
+    cursor: pointer;
+    transition: 0.1s ease-out;
+    color: $colorGray;
+    &:hover {
+      color: $main;
+    }
+  }
+}
+//文字框外層
+.text-wrap {
+  .main-text {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    position: relative;
+    &.done {
+      color: $colorGray;
+      &:after {
+        display: block;
+        content: '';
+        width: 100%;
+        height: 1px;
+        background-color:$colorGray;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+    }
+  }
+  .date {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: $colorGray;
+  }
+}
+
+
+.edits {
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 5px;
+  border: 1px solid $main;
+}
+  
+
+.edit-panel {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 1rem;
+}
+ 
+
+
+.edit-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+      
+.edit-main {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: $colorBlack;
+  border: none;
+  outline: none;
+  letter-spacing: 2px;
+  &::placeholder {
+    color: $colorGray;
+    letter-spacing: 1px;
+    font-weight: 300;
+  }
+}
+        
+
+.edit-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: auto;
+  .enter,.cancel {
+    cursor: pointer;
+  }
+  .enter-icon,.cancel-icon {
+    font-size: 1rem;
+    padding: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.1s ease-in;
+    color: $main;
+  }
+}
