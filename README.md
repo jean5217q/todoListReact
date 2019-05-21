@@ -1,5 +1,5 @@
 # Todolist
-Web Link: https://jean5217q.github.io/T612/#/
+Web Link: https://jean5217q.github.io/todoListReact/
 
 ## Technologies
 * SCSS
